@@ -47,10 +47,6 @@ app.get('/ping', (req, res) => res.send('ok'));
 app.use(bodyParser.json());
 
 
-const allowedOrigins = [
-  "http://localhost:3000", // local dev
-  "https://jeevandhara.vercel.app" // production frontend
-];
 
 // settings up cors
 app.use(cors({ origin: "*" }));
