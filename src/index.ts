@@ -46,9 +46,25 @@ app.get('/ping', (req, res) => res.send('ok'));
 // adding middlewares
 app.use(bodyParser.json());
 
+
+const allowedOrigins = [
+  "http://localhost:3000", // local dev
+  "https://jeevandhara.vercel.app" // production frontend
+];
+
 // settings up cors
 app.use(cors({ origin: "*" }));
-
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow non-browser requests like Postman
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // allow cookies/auth headers
+}))
 // setting up preflight handler to avoid cors errors
 app.use(preflightHandler)
 
