@@ -47,7 +47,7 @@ app.get('/ping', (req, res) => res.send('ok'));
 app.use(bodyParser.json());
 
 // settings up cors
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 // setting up preflight handler to avoid cors errors
 app.use(preflightHandler)
